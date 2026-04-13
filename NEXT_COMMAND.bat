@@ -1,13 +1,13 @@
 ﻿@echo off
 setlocal enabledelayedexpansion
 cd /d "%~dp0next"
-title NEXT - THE NEXT BIG THING
-color 0E
+title NEXT.DUBAI - LUXURY COMMAND CENTER
+color 06
 
 cls
 echo.
-echo   Igniting Potential...
-echo   [====================] 100%
+echo   [SYSTEM] Initializing Dubai Mall Luxury Core...
+echo   [SYSTEM] SYNCING GLOBAL_FLAGS... [==========] 100%
 timeout /t 1 >nul
 cls
 
@@ -15,29 +15,29 @@ cls
 cls
 echo.
 echo  ╔═════════════════════════════════════════════════════════╗
-echo  ║   _   _  _______  __  _____   ____ ___ ____             ║
-echo  ║  ^| \ ^| ^|/ ____\ \/ / ^|_   _^| ^|  _ \_ _/ ___^|            ║
-echo  ║  ^|  \^| ^|  _^|  \  /    ^| ^|   ^| ^|_) ^| ^| ^|  _             ║
-echo  ║  ^| ^|\  ^| ^|___ /  \    ^| ^|   ^|  _ < ^| ^| ^|_^| ^|            ║
-echo  ║  ^|_^| \_^|_____/_/\_\   ^|_^|   ^|_^| \_\___\____^|            ║
+echo  ║  _   _  _______  __  _____   ____  _   _ ____    _    ___ ║
+echo  ║ ^| \ ^| ^|/ ____\ \/ / ^|_   _^| ^|  _ \^| ^| ^| ^| __ )  / \  ^|_ _^|║
+echo  ║ ^|  \^| ^|  _^|  \  /    ^| ^|   ^| ^| ^| ^| ^| ^| ^|  _ \ / _ \  ^| ^| ║
+echo  ║ ^| ^|\  ^| ^|___ /  \    ^| ^|   ^| ^|_^| ^| ^|_^| ^| ^|_) / ___ \ ^| ^| ║
+echo  ║ ^|_^| \_^|_____/_/\_\   ^|_^|   ^|____/ \___/^|____/_/   \_\___^|║
 echo  ║                                                         ║
 echo  ╠═════════════════════════════════════════════════════════╣
-echo  ║  PROJECT: THE NEXT BIG THING                            ║
-echo  ║  STATUS: POSITIVE VIBES ONLY [ONLINE]                   ║
-echo  ║  SYS_ID: 0x7777     [OPTIMIZED FOR GROWTH]              ║
+echo  ║  OPERATOR: %USERNAME%                                      
+echo  ║  TIMESTAMP: %DATE% - %TIME:~0,5%                             
+echo  ║  SYS_ID: 0xDUBAI    [STATUS: PREMIUM ONLINE]            ║
 echo  ╠═════════════════════════════════════════════════════════╣
 echo  ║                                                         ║
 echo  ║   [1]  IGNITE DEV SERVER      (npm run dev)             ║
 echo  ║   [2]  BUILD FOR THE FUTURE   (npm run build)           ║
 echo  ║   [3]  LAUNCH PRODUCTION      (npm run start)           ║
 echo  ║   [4]  EXPLORE CORE FILES     (Explorer)                ║
-echo  ║   [5]  VIEW INSPIRATION       (Web)                     ║
-echo  ║   [6]  INSTALL POTENTIAL      (npm install)             ║
-echo  ║   [7]  EXIT TERMINAL                                    ║
+echo  ║   [5]  VIEW LIVE DASHBOARD    (Web)                     ║
+echo  ║   [6]  SYNC DEPENDENCIES      (npm install)             ║
+echo  ║   [7]  EXIT COMMAND CENTER                              ║
 echo  ║                                                         ║
 echo  ╚═════════════════════════════════════════════════════════╝
 echo.
-set /p choice="  root@next-thing:~# ACTION [1-7]: "
+set /p choice="  root@next.dubai:~# ACTION [1-7]: "
 
 if "%choice%"=="1" goto dev
 if "%choice%"=="2" goto build
@@ -53,7 +53,7 @@ goto menu
 :dev
 echo.
 echo  ======================================================
-echo  [GROWTH] Launching Next.js Immersive Environment...
+echo  [PREMIUM] Launching Dubai Mall Immersive Environment...
 echo  ======================================================
 call npm.cmd run dev
 if %errorlevel% neq 0 (
@@ -65,7 +65,7 @@ goto menu
 :build
 echo.
 echo  ======================================================
-echo  [FUTURE] Optimizing for Peak Performance...
+echo  [LUXURY] Optimizing Infrastructure for Peak Traffic...
 echo  ======================================================
 call npm.cmd run build
 if %errorlevel% neq 0 pause
@@ -74,7 +74,7 @@ goto menu
 :start
 echo.
 echo  ======================================================
-echo  [GLOBAL] Starting Production Server...
+echo  [GLOBAL] Starting High-Performance Luxury Server...
 echo  ======================================================
 call npm.cmd run start
 if %errorlevel% neq 0 pause
@@ -91,7 +91,7 @@ goto menu
 :inspiration
 echo.
 echo  ======================================================
-echo  [SPIRIT] Viewing Live Inspiration...
+echo  [SPIRIT] Viewing Live Experience...
 echo  ======================================================
 start http://localhost:3000
 goto menu
@@ -109,6 +109,6 @@ goto menu
 echo.
 echo  ======================================================
 echo  [SYSTEM] Terminating Session...
-echo  [SYSTEM] Stay Focused. Stay Positive.
+echo  [SYSTEM] Luxury is a State of Mind. Stay Focused.
 timeout /t 2 >nul
 exit

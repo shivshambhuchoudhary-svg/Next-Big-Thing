@@ -3,22 +3,24 @@ import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const inspirations = [
-    "The best way to predict the future is to create it.",
-    "Your potential is endless.",
-    "Keep pushing forward. The Next Big Thing is just around the corner.",
-    "Innovation is the bridge to the future.",
-    "Small steps lead to big dreams.",
-    "The future belongs to those who believe in the beauty of their dreams.",
-    "Believe you can and you're halfway there.",
-    "Success is not final, failure is not fatal: it is the courage to continue that counts."
+  const luxuryInsights = [
+    { title: "Retail Innovation", detail: "Integrating AI-driven personal shoppers across 1,200+ boutiques.", metric: "99.9% Uptime" },
+    { title: "Architectural Vision", detail: "The next phase of vertical expansion inspired by Burj Khalifa geometry.", metric: "2,717 ft Height" },
+    { title: "Global Presence", detail: "Syncing real-time luxury inventory with 54 global flagship hubs.", metric: "11ms Latency" },
+    { title: "Experience Design", detail: "Redefining the 'Digital Fountain' experience with 8K holographic projections.", metric: "1.2B Visitors" },
+    { title: "The Next Big Thing", detail: "Autonomous luxury transport pods connecting the mall to the urban core.", metric: "Zero Config" }
   ];
-  const randomInspire = inspirations[Math.floor(Math.random() * inspirations.length)];
+  const randomInsight = luxuryInsights[Math.floor(Math.random() * luxuryInsights.length)];
   
   return NextResponse.json({
-    message: "Success! You've connected to the NEXT core.",
-    inspiration: randomInspire,
-    status: "Active & Evolving",
-    timestamp: new Date().toISOString()
+    message: "DUBAI MALL LUXURY CORE CONNECTED",
+    insight: randomInsight,
+    status: "PREMIUM",
+    timestamp: new Date().toISOString(),
+    metrics: {
+      uptime: "99.99%",
+      visitors: "80M+",
+      stores: "1,200+"
+    }
   });
 }

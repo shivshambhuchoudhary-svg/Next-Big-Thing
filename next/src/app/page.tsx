@@ -2,20 +2,20 @@
 import { useState, useEffect, useCallback } from 'react';
 
 export default function Home() {
-  const [data, setData] = useState<{ inspiration: string, status: string, timestamp: string } | null>(null);
+  const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [counter, setCounter] = useState(10); // Refresh countdown
+  const [counter, setCounter] = useState(15); 
 
-  const fetchInspiration = useCallback(async () => {
+  const fetchInsight = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/inspire?t=${Date.now()}`); // Cache-busting query
+      const res = await fetch(`/api/inspire?t=${Date.now()}`); 
       if (!res.ok) throw new Error("API Failure");
       const d = await res.json();
       setData(d);
       setError(false);
-      setCounter(10);
+      setCounter(15);
     } catch (err) {
       console.error(err);
       setError(true);
@@ -25,92 +25,160 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetchInspiration();
+    fetchInsight();
     const timer = setInterval(() => {
       setCounter((prev) => {
         if (prev <= 1) {
-          fetchInspiration();
-          return 10;
+          fetchInsight();
+          return 15;
         }
         return prev - 1;
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [fetchInspiration]);
+  }, [fetchInsight]);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-8 text-white relative overflow-hidden bg-black font-sans">
-      {/* Dynamic Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-yellow-600 via-orange-800 to-red-950 opacity-40 animate-pulse transition-all duration-[3000ms]"></div>
+    <main className="min-h-screen flex flex-col items-center bg-[#050505] text-[#D4AF37] font-sans selection:bg-[#D4AF37] selection:text-black overflow-x-hidden">
+      {/* Architectural Background Pattern */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23D4AF37' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")` }}></div>
       
-      {/* Floating Animated Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-400 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-bounce"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-600 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-pulse"></div>
+      {/* Luxury Gradient Glows */}
+      <div className="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#D4AF37] rounded-full filter blur-[180px] opacity-[0.05]"></div>
+      <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#8B732A] rounded-full filter blur-[180px] opacity-[0.05]"></div>
 
-      <div className="z-10 text-center space-y-12 max-w-4xl">
-        <div className="space-y-4">
-          <h1 className="text-9xl font-black tracking-tighter drop-shadow-[0_10px_30px_rgba(255,180,0,0.6)] bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-white to-orange-500">
-            NEXT
-          </h1>
-          <p className="text-3xl font-light italic text-orange-200/60 uppercase tracking-[1em] ml-4">
-            The Next Big Thing
-          </p>
+      {/* Header Navigation */}
+      <header className="w-full max-w-7xl px-8 py-8 flex justify-between items-center z-50">
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-gradient-to-br from-[#D4AF37] to-[#8B732A] rounded-sm transform rotate-45 flex items-center justify-center">
+            <span className="text-black font-black text-xs -rotate-45">N</span>
+          </div>
+          <span className="font-bold tracking-[0.2em] text-white">NEXT.DUBAI</span>
         </div>
+        <nav className="hidden md:flex space-x-12 text-xs font-mono uppercase tracking-widest text-white/40">
+          <a href="#" className="hover:text-[#D4AF37] transition-colors">Infrastructure</a>
+          <a href="#" className="hover:text-[#D4AF37] transition-colors">Retail Core</a>
+          <a href="#" className="hover:text-[#D4AF37] transition-colors">Vision</a>
+          <button className="px-6 py-2 border border-[#D4AF37]/30 rounded-full text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all">
+            GET STARTED
+          </button>
+        </nav>
+      </header>
 
-        <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent my-16 shadow-[0_0_15px_rgba(255,255,0,0.3)]"></div>
+      {/* Hero Section */}
+      <section className="w-full max-w-7xl px-8 pt-20 pb-12 flex flex-col items-center text-center z-10">
+        <div className="inline-block px-4 py-1 border border-[#D4AF37]/20 rounded-full bg-[#D4AF37]/5 text-[#D4AF37] text-[10px] font-mono tracking-widest uppercase mb-6 animate-fade-in">
+          Dubai Mall Core v2.0 &bull; Deployment 0x777
+        </div>
+        <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-white mb-8">
+          The Next Big <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF3B0] to-[#8B732A]">Thing</span>
+        </h1>
+        <p className="max-w-2xl text-lg md:text-xl text-white/50 font-light leading-relaxed mb-12">
+          Experience the pinnacle of luxury retail through our high-performance edge infrastructure. 
+          The Dubai Mall Command Center is now online.
+        </p>
+      </section>
 
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-          <div className="relative bg-black/40 border border-white/10 p-16 rounded-3xl backdrop-blur-2xl shadow-2xl transition-all duration-700 hover:scale-[1.02]">
-            {loading && !data ? (
-              <div className="flex flex-col items-center space-y-4">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-400"></div>
-                <p className="text-yellow-500 font-mono tracking-widest text-sm">SYNCHRONIZING...</p>
-              </div>
-            ) : error ? (
-              <p className="text-red-400">System Connection Interrupted. Retrying...</p>
-            ) : (
-              <div className="space-y-10">
-                <p className="text-4xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-orange-50 to-yellow-100 italic">
-                   "{data?.inspiration}"
-                </p>
-                
-                <div className="flex flex-col items-center justify-center space-y-4">
-                  <div className="flex items-center space-x-4">
-                    <span className="h-3 w-3 bg-yellow-400 rounded-full shadow-[0_0_10px_#facc15] animate-ping"></span>
-                    <span className="text-sm font-mono uppercase tracking-[0.3em] text-yellow-500/90 font-bold">
-                      {data?.status} &bull; NEXT UPDATE IN {counter}s
-                    </span>
-                  </div>
-                  <p className="text-[10px] font-mono text-white/20 tracking-widest uppercase">
-                    Pulse ID: {data?.timestamp ? btoa(data.timestamp).substring(0, 16) : '0xLOADING'}
-                  </p>
+      {/* Bento Grid Command Center */}
+      <section className="w-full max-w-7xl px-8 grid grid-cols-1 md:grid-cols-4 gap-4 z-10 pb-32">
+        
+        {/* Main Terminal Card */}
+        <div className="md:col-span-3 bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 backdrop-blur-xl relative overflow-hidden group hover:border-[#D4AF37]/20 transition-all duration-500">
+          <div className="flex justify-between items-center mb-8">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+            </div>
+            <div className="text-[10px] font-mono text-white/20 uppercase tracking-[0.3em]">Command_Center_Dubai</div>
+          </div>
+          
+          <div className="space-y-6">
+            <div className="flex items-start space-x-4">
+              <span className="text-[#D4AF37] font-mono text-xl opacity-50">$</span>
+              <div className="flex-1 font-mono text-sm leading-relaxed">
+                <span className="text-white/40">initialize --luxury-protocol dubai_mall</span><br/>
+                <span className="text-green-400">✓ Luxury core loaded successfully</span><br/>
+                <span className="text-white/40 mt-4 block">fetching_live_insight...</span>
+                <div className="mt-8 p-6 bg-white/[0.02] border-l-2 border-[#D4AF37] rounded-r-lg animate-in fade-in slide-in-from-left duration-700">
+                   {loading ? (
+                     <div className="animate-pulse flex flex-col space-y-2">
+                        <div className="h-4 bg-white/5 w-3/4 rounded"></div>
+                        <div className="h-4 bg-white/5 w-1/2 rounded"></div>
+                     </div>
+                   ) : (
+                     <div className="space-y-2">
+                        <h3 className="text-[#D4AF37] font-bold text-lg uppercase tracking-widest">{data?.insight?.title}</h3>
+                        <p className="text-white/70 italic text-base leading-relaxed">"{data?.insight?.detail}"</p>
+                        <div className="text-[10px] text-white/30 uppercase pt-4 flex items-center">
+                           <span className="inline-block w-2 h-2 bg-[#D4AF37] rounded-full mr-2 animate-ping"></span>
+                           SYNCING... {counter}s REMAINING
+                        </div>
+                     </div>
+                   )}
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
 
-        <div className="pt-16 flex justify-center space-x-8">
-          <button 
-            onClick={() => fetchInspiration()}
-            className="group relative px-12 py-5 bg-white text-black rounded-full font-black text-xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_10px_40px_rgba(255,255,255,0.2)]"
-          >
-            <span className="relative z-10">EVOLVE NOW</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </button>
-          
-          <button className="px-12 py-5 border-2 border-white/20 rounded-full font-bold text-xl hover:bg-white/10 hover:border-white transition-all active:scale-95 backdrop-blur-sm">
-            EXPLORE
-          </button>
+        {/* Small Metric Cards */}
+        <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/20 transition-all">
+          <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">Latency</div>
+          <div className="text-5xl font-black text-white mt-4">{data?.insight?.metric?.includes('ms') ? data.insight.metric : '11ms'}</div>
+          <div className="text-[10px] text-white/30 font-mono mt-4">EDGE_RESPONSE_OK</div>
         </div>
-      </div>
 
-      <footer className="absolute bottom-10 left-0 right-0 text-center">
-        <div className="text-xs text-white/20 uppercase tracking-[1em] mb-4">
-          Engineered for Potential &bull; v1.0.Dynamic
+        <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/20 transition-all">
+          <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">Uptime</div>
+          <div className="text-5xl font-black text-white mt-4">{data?.metrics?.uptime || '99.9%'}</div>
+          <div className="text-[10px] text-white/30 font-mono mt-4">GLOBAL_STABILITY_CORE</div>
+        </div>
+
+        <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/20 transition-all">
+          <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">Visitors</div>
+          <div className="text-5xl font-black text-white mt-4">{data?.metrics?.visitors || '80M+'}</div>
+          <div className="text-[10px] text-white/30 font-mono mt-4">ANNUAL_RETAIL_FLOW</div>
+        </div>
+
+        <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/20 transition-all">
+          <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">Stores</div>
+          <div className="text-5xl font-black text-white mt-4">{data?.metrics?.stores || '1,200+'}</div>
+          <div className="text-[10px] text-white/30 font-mono mt-4">RETAIL_DENSITY_HUB</div>
+        </div>
+
+        <div className="md:col-span-4 bg-gradient-to-r from-[#D4AF37]/10 to-transparent border border-[#D4AF37]/20 rounded-2xl p-8 flex flex-col md:flex-row justify-between items-center group overflow-hidden relative">
+           <div className="z-10 text-center md:text-left">
+              <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">The Future of Retail is Here.</h2>
+              <p className="text-white/40 text-sm">Join the 1,200+ luxury brands scaling on our Dubai Mall infrastructure.</p>
+           </div>
+           <button className="z-10 mt-6 md:mt-0 px-10 py-4 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-xs hover:bg-[#FFF3B0] transition-all transform hover:scale-105 active:scale-95">
+              DEPLOY LUXURY EXPERIENCE
+           </button>
+           <div className="absolute right-[-10%] bottom-[-50%] w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl group-hover:bg-[#D4AF37]/20 transition-all"></div>
+        </div>
+
+      </section>
+
+      {/* Footer */}
+      <footer className="w-full py-12 border-t border-white/5 flex flex-col items-center bg-black/50 backdrop-blur-md">
+        <div className="text-[10px] font-mono text-white/20 uppercase tracking-[1em] mb-4">
+          &copy; 2026 DUBAI MALL CORE &bull; ALL RIGHTS RESERVED
+        </div>
+        <div className="flex space-x-6 text-[10px] font-mono text-[#D4AF37]/50">
+           <span className="hover:text-[#D4AF37] cursor-pointer">PRIVACY</span>
+           <span className="hover:text-[#D4AF37] cursor-pointer">COMPLIANCE</span>
+           <span className="hover:text-[#D4AF37] cursor-pointer">INFRASTRUCTURE</span>
         </div>
       </footer>
+
+      <style jsx global>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fade-in 1s ease-out forwards; }
+      `}</style>
     </main>
   );
 }
