@@ -1,133 +1,195 @@
 "use client";
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { Play, ArrowRight, Activity, Users, Store, ExternalLink } from 'lucide-react';
 
 export default function Home() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [counter, setCounter] = useState(15); 
+  const [storyData, setStoryData] = useState<any>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const fetchInsight = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/inspire?t=${Date.now()}`); 
-      if (!res.ok) throw new Error("API Failure");
-      const d = await res.json();
-      setData(d);
-      setError(false);
-      setCounter(15);
-    } catch (err) {
-      console.error(err);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
   useEffect(() => {
-    fetchInsight();
-    const timer = setInterval(() => {
-      setCounter((prev) => {
-        if (prev <= 1) {
-          fetchInsight();
-          return 15;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [fetchInsight]);
+    fetch('/api/story')
+      .then(res => res.json())
+      .then(data => setStoryData(data));
+  }, []);
+
+  // Update active index based on scroll position
+  useEffect(() => {
+    if (!storyData?.sections) return;
+    const unsubscribe = scrollYProgress.onChange(v => {
+      const sectionCount = storyData.sections.length;
+      const index = Math.min(Math.floor(v * sectionCount), sectionCount - 1);
+      setActiveIndex(index);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress, storyData]);
+
+  if (!storyData) return (
+    <div className="h-screen w-full bg-black flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#D4AF37]"></div>
+    </div>
+  );
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-[#080808] text-[#D4AF37] font-sans selection:bg-[#D4AF37] selection:text-black overflow-x-hidden">
-      {/* Cinematic Dino Shadows */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.02]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 20l30 10l-10 40l50-20z' fill='%23D4AF37'/%3E%3C/svg%3E")` }}></div>
+    <main ref={containerRef} className="relative bg-black text-white selection:bg-[#D4AF37] selection:text-black">
       
-      {/* Museum Lighting Effects */}
-      <div className="fixed top-[-20%] left-[20%] w-[60%] h-[60%] bg-[#D4AF37] rounded-full filter blur-[200px] opacity-[0.03]"></div>
-      <div className="fixed bottom-[-10%] right-[10%] w-[40%] h-[40%] bg-[#8B732A] rounded-full filter blur-[200px] opacity-[0.03]"></div>
+      {/* BACKGROUND LAYER: FIXED */}
+      <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
+        <AnimatePresence mode="wait">
+          {storyData.sections.map((section: any, idx: number) => (
+            idx === activeIndex && (
+              <motion.div
+                key={section.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                className="absolute inset-0 w-full h-full"
+              >
+                {section.bgType === 'video' ? (
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover filter brightness-[0.4]"
+                    src={section.bgUrl}
+                  />
+                ) : (
+                  <img
+                    src={section.bgUrl}
+                    alt={section.title}
+                    className="w-full h-full object-cover filter brightness-[0.4]"
+                  />
+                )}
+                {/* Overlay Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+              </motion.div>
+            )
+          ))}
+        </AnimatePresence>
+      </div>
 
-      {/* Luxury Navigation */}
-      <header className="w-full max-w-7xl px-8 py-8 flex justify-between items-center z-50">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 border-2 border-[#D4AF37] rounded-full flex items-center justify-center font-black italic">D</div>
-          <span className="font-bold tracking-[0.4em] text-white">DUBAI.DINO</span>
-        </div>
-        <nav className="hidden md:flex space-x-12 text-[10px] font-mono uppercase tracking-[0.5em] text-white/40">
-          <a href="#" className="hover:text-[#D4AF37] transition-colors">Exhibit</a>
-          <a href="#" className="hover:text-[#D4AF37] transition-colors">Legacy</a>
-          <a href="#" className="hover:text-[#D4AF37] transition-colors">Capture</a>
-          <button className="px-8 py-2 bg-white text-black font-black hover:bg-[#D4AF37] transition-all">
-            VIP ACCESS
-          </button>
+      {/* CONTENT SECTIONS */}
+      <div className="relative z-10">
+        
+        {/* Navigation Overlay */}
+        <nav className="fixed top-0 left-0 w-full px-8 py-8 flex justify-between items-center z-50">
+          <div className="flex items-center space-x-3 group cursor-pointer">
+            <div className="w-10 h-10 border-2 border-[#D4AF37] rounded-full flex items-center justify-center transition-all group-hover:bg-[#D4AF37]">
+              <Store className="w-5 h-5 group-hover:text-black transition-colors" />
+            </div>
+            <span className="font-black tracking-[0.4em] uppercase text-sm group-hover:tracking-[0.6em] transition-all">Dubai Mall</span>
+          </div>
+          <div className="hidden md:flex space-x-12 text-[10px] font-mono uppercase tracking-[0.5em] text-white/40">
+            <span className="hover:text-[#D4AF37] cursor-pointer transition-colors">Infrastructure</span>
+            <span className="hover:text-[#D4AF37] cursor-pointer transition-colors">Experience</span>
+            <button className="px-8 py-2 bg-[#D4AF37] text-black font-black hover:bg-white transition-all text-[9px]">
+              LEASE NOW
+            </button>
+          </div>
         </nav>
-      </header>
 
-      {/* Main Focus Section */}
-      <section className="w-full max-w-7xl px-8 pt-32 pb-12 flex flex-col items-center text-center z-10">
-        <div className="px-6 py-2 border-l-4 border-[#D4AF37] bg-white/5 text-[#D4AF37] text-[10px] font-mono tracking-widest uppercase mb-10">
-          Cinematic Angle Activated &bull; Diplodocus longus
-        </div>
-        
-        <h1 className="text-8xl md:text-[12rem] font-black tracking-tighter text-white mb-4 leading-none select-none">
-          DINO <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#D4AF37] to-[#1a1a1a]">DUBAI</span>
-        </h1>
-        
-        <p className="max-w-3xl text-xl text-white/40 font-light italic leading-relaxed mb-20 tracking-wide">
-          "Witness the 155-million-year-old skeleton from the perfect cinematic angle in the Grand Atrium. Pure ancient majesty without the distractions."
-        </p>
-
-        {/* The Dino "Photo" Frame (Representing the Best Angle) */}
-        <div className="w-full aspect-video md:aspect-[21/9] bg-gradient-to-tr from-black via-[#111] to-[#0a0a0a] border border-white/10 rounded-sm relative overflow-hidden group shadow-2xl">
-           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#D4AF37]/5 via-transparent to-transparent opacity-50"></div>
-           
-           {/* Visual Representation of the Best Angle (Abstracted as Cinematic Elements) */}
-           <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-full h-full flex items-end justify-center pb-20 overflow-hidden">
-                  <div className="w-[80%] h-full border-t-2 border-r-2 border-[#D4AF37]/20 rounded-tr-[100px] transform -skew-x-12 translate-y-20 opacity-30"></div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-[#D4AF37]/40 rounded-full animate-ping"></div>
+        {/* Narrative Flow */}
+        {storyData.sections.map((section: any, idx: number) => (
+          <section key={section.id} className="min-h-[150vh] flex flex-col items-center justify-center px-8 relative">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              viewport={{ margin: "-200px" }}
+              className="text-center max-w-5xl"
+            >
+              <div className="mb-6 flex justify-center">
+                 <div className="h-[1px] w-24 bg-[#D4AF37]/50 mt-4"></div>
+                 <span className="mx-6 text-[10px] font-mono text-[#D4AF37] tracking-[1em] uppercase">0{idx + 1} // Dubai Core</span>
+                 <div className="h-[1px] w-24 bg-[#D4AF37]/50 mt-4"></div>
               </div>
-           </div>
 
-           <div className="absolute top-8 left-8 text-[10px] font-mono text-[#D4AF37]/50 uppercase tracking-[0.5em]">Frame: 01_CINEMATIC_LOW</div>
-           <div className="absolute bottom-8 right-8 text-[10px] font-mono text-[#D4AF37]/50 uppercase tracking-[0.5em]">ISO: 100 // SHUTTER: 1/60</div>
-        </div>
-      </section>
+              <h2 className="text-7xl md:text-9xl font-black tracking-tighter mb-8 leading-none">
+                {section.title.split(" ").map((word: string, i: number) => (
+                  <span key={i} className={i % 2 !== 0 ? "text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#8B732A]" : ""}>
+                    {word}{" "}
+                  </span>
+                ))}
+              </h2>
+              
+              <p className="text-xl md:text-2xl text-white/50 font-light italic leading-relaxed tracking-wide max-w-2xl mx-auto mb-12">
+                "{section.subtitle}"
+              </p>
 
-      {/* Exhibit Metrics */}
-      <section className="w-full max-w-7xl px-8 grid grid-cols-1 md:grid-cols-4 gap-1 z-10 pt-20 pb-40">
-        <div className="bg-white/5 p-12 border border-white/5 hover:bg-[#D4AF37]/5 transition-all">
-          <h4 className="text-[#D4AF37] text-xs font-mono mb-4 uppercase tracking-widest">Age</h4>
-          <p className="text-5xl font-black text-white">{data?.metrics?.age ? '155M' : '---'}</p>
-          <p className="text-[10px] text-white/20 mt-4">JURASSIC_PERIOD</p>
-        </div>
-        
-        <div className="bg-white/5 p-12 border border-white/5 hover:bg-[#D4AF37]/5 transition-all">
-          <h4 className="text-[#D4AF37] text-xs font-mono mb-4 uppercase tracking-widest">Length</h4>
-          <p className="text-5xl font-black text-white">24.4m</p>
-          <p className="text-[10px] text-white/20 mt-4">DIPLODOCUS_L</p>
-        </div>
+              {section.metric && (
+                <div className="flex flex-col items-center mt-12 group">
+                   <div className="text-8xl md:text-[10rem] font-black text-white/10 group-hover:text-[#D4AF37]/20 transition-all duration-1000 mb-[-2rem] select-none">
+                      {section.metric}
+                   </div>
+                   <div className="text-sm font-mono uppercase tracking-[1em] text-[#D4AF37]">
+                      {section.metricLabel}
+                   </div>
+                </div>
+              )}
+            </motion.div>
+          </section>
+        ))}
 
-        <div className="bg-white/5 p-12 border border-white/5 hover:bg-[#D4AF37]/5 transition-all md:col-span-2 flex flex-col justify-between">
-          <div className="flex justify-between items-start">
-             <div>
-                <h4 className="text-[#D4AF37] text-xs font-mono mb-4 uppercase tracking-widest">Live Feed</h4>
-                <p className="text-2xl font-bold text-white italic">"{data?.insight?.detail}"</p>
-             </div>
-             <div className="text-right">
-                <p className="text-[#D4AF37] font-mono text-xs">{counter}s</p>
-             </div>
-          </div>
-          <div className="w-full h-1 bg-white/5 mt-8">
-             <div className="h-full bg-[#D4AF37] animate-pulse" style={{ width: `${(counter/15)*100}%` }}></div>
-          </div>
-        </div>
-      </section>
+        {/* THE CLIMAX: CTA Section */}
+        <section className="min-h-screen flex flex-col items-center justify-center px-8 bg-gradient-to-b from-transparent to-[#D4AF37]/5 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent"></div>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="text-center max-w-4xl z-10"
+          >
+            <h2 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 text-white">
+               {storyData.cta.title}
+            </h2>
+            <p className="text-xl md:text-2xl text-white/40 mb-16 font-light italic">
+              {storyData.cta.subtitle}
+            </p>
+            
+            <div className="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-8">
+              <button className="group px-12 py-6 bg-[#D4AF37] text-black font-black text-xl flex items-center justify-center hover:bg-white transition-all transform hover:scale-105 active:scale-95">
+                {storyData.cta.primaryAction}
+                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              </button>
+              <button className="px-12 py-6 border-2 border-white/20 rounded-none text-white font-black text-xl hover:bg-white/10 transition-all flex items-center justify-center">
+                {storyData.cta.secondaryAction}
+                <ExternalLink className="ml-3 w-5 h-5 text-white/30" />
+              </button>
+            </div>
+          </motion.div>
 
-      {/* Footer */}
-      <footer className="w-full py-16 border-t border-white/5 flex flex-col items-center">
-        <p className="text-[10px] font-mono text-white/10 uppercase tracking-[1.5em] mb-4">MUSEUM ARCHIVE &bull; NO BATMAN &bull; JUST DINO</p>
-      </footer>
+          <footer className="absolute bottom-12 left-0 right-0 text-center text-[10px] font-mono text-white/20 uppercase tracking-[1.5em]">
+             Built for Dubai Core &bull; Story v3.0 &bull; Cinematic Experience
+          </footer>
+        </section>
+      </div>
+
+      {/* FIXED UI ELEMENTS */}
+      <div className="fixed bottom-12 left-12 z-50 flex flex-col space-y-4">
+        {storyData.sections.map((_: any, i: number) => (
+          <div 
+            key={i} 
+            className={`w-1 h-8 rounded-full transition-all duration-500 ${i === activeIndex ? 'bg-[#D4AF37] h-12 shadow-[0_0_10px_#D4AF37]' : 'bg-white/20'}`}
+          />
+        ))}
+      </div>
+
+      <style jsx global>{`
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; }
+        body { background: black; }
+      `}</style>
+
     </main>
   );
 }
