@@ -39,146 +39,95 @@ export default function Home() {
   }, [fetchInsight]);
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-[#050505] text-[#D4AF37] font-sans selection:bg-[#D4AF37] selection:text-black overflow-x-hidden">
-      {/* Architectural Background Pattern */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23D4AF37' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")` }}></div>
+    <main className="min-h-screen flex flex-col items-center bg-[#080808] text-[#D4AF37] font-sans selection:bg-[#D4AF37] selection:text-black overflow-x-hidden">
+      {/* Cinematic Dino Shadows */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.02]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 20l30 10l-10 40l50-20z' fill='%23D4AF37'/%3E%3C/svg%3E")` }}></div>
       
-      {/* Luxury Gradient Glows */}
-      <div className="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#D4AF37] rounded-full filter blur-[180px] opacity-[0.05]"></div>
-      <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#8B732A] rounded-full filter blur-[180px] opacity-[0.05]"></div>
+      {/* Museum Lighting Effects */}
+      <div className="fixed top-[-20%] left-[20%] w-[60%] h-[60%] bg-[#D4AF37] rounded-full filter blur-[200px] opacity-[0.03]"></div>
+      <div className="fixed bottom-[-10%] right-[10%] w-[40%] h-[40%] bg-[#8B732A] rounded-full filter blur-[200px] opacity-[0.03]"></div>
 
-      {/* Header Navigation */}
+      {/* Luxury Navigation */}
       <header className="w-full max-w-7xl px-8 py-8 flex justify-between items-center z-50">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-[#D4AF37] to-[#8B732A] rounded-sm transform rotate-45 flex items-center justify-center">
-            <span className="text-black font-black text-xs -rotate-45">N</span>
-          </div>
-          <span className="font-bold tracking-[0.2em] text-white">NEXT.DUBAI</span>
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 border-2 border-[#D4AF37] rounded-full flex items-center justify-center font-black italic">D</div>
+          <span className="font-bold tracking-[0.4em] text-white">DUBAI.DINO</span>
         </div>
-        <nav className="hidden md:flex space-x-12 text-xs font-mono uppercase tracking-widest text-white/40">
-          <a href="#" className="hover:text-[#D4AF37] transition-colors">Infrastructure</a>
-          <a href="#" className="hover:text-[#D4AF37] transition-colors">Retail Core</a>
-          <a href="#" className="hover:text-[#D4AF37] transition-colors">Vision</a>
-          <button className="px-6 py-2 border border-[#D4AF37]/30 rounded-full text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all">
-            GET STARTED
+        <nav className="hidden md:flex space-x-12 text-[10px] font-mono uppercase tracking-[0.5em] text-white/40">
+          <a href="#" className="hover:text-[#D4AF37] transition-colors">Exhibit</a>
+          <a href="#" className="hover:text-[#D4AF37] transition-colors">Legacy</a>
+          <a href="#" className="hover:text-[#D4AF37] transition-colors">Capture</a>
+          <button className="px-8 py-2 bg-white text-black font-black hover:bg-[#D4AF37] transition-all">
+            VIP ACCESS
           </button>
         </nav>
       </header>
 
-      {/* Hero Section */}
-      <section className="w-full max-w-7xl px-8 pt-20 pb-12 flex flex-col items-center text-center z-10">
-        <div className="inline-block px-4 py-1 border border-[#D4AF37]/20 rounded-full bg-[#D4AF37]/5 text-[#D4AF37] text-[10px] font-mono tracking-widest uppercase mb-6 animate-fade-in">
-          Dubai Mall Core v2.0 &bull; Deployment 0x777
+      {/* Main Focus Section */}
+      <section className="w-full max-w-7xl px-8 pt-32 pb-12 flex flex-col items-center text-center z-10">
+        <div className="px-6 py-2 border-l-4 border-[#D4AF37] bg-white/5 text-[#D4AF37] text-[10px] font-mono tracking-widest uppercase mb-10">
+          Cinematic Angle Activated &bull; Diplodocus longus
         </div>
-        <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-white mb-8">
-          The Next Big <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF3B0] to-[#8B732A]">Thing</span>
+        
+        <h1 className="text-8xl md:text-[12rem] font-black tracking-tighter text-white mb-4 leading-none select-none">
+          DINO <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#D4AF37] to-[#1a1a1a]">DUBAI</span>
         </h1>
-        <p className="max-w-2xl text-lg md:text-xl text-white/50 font-light leading-relaxed mb-12">
-          Experience the pinnacle of luxury retail through our high-performance edge infrastructure. 
-          The Dubai Mall Command Center is now online.
+        
+        <p className="max-w-3xl text-xl text-white/40 font-light italic leading-relaxed mb-20 tracking-wide">
+          "Witness the 155-million-year-old skeleton from the perfect cinematic angle in the Grand Atrium. Pure ancient majesty without the distractions."
         </p>
+
+        {/* The Dino "Photo" Frame (Representing the Best Angle) */}
+        <div className="w-full aspect-video md:aspect-[21/9] bg-gradient-to-tr from-black via-[#111] to-[#0a0a0a] border border-white/10 rounded-sm relative overflow-hidden group shadow-2xl">
+           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#D4AF37]/5 via-transparent to-transparent opacity-50"></div>
+           
+           {/* Visual Representation of the Best Angle (Abstracted as Cinematic Elements) */}
+           <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-full h-full flex items-end justify-center pb-20 overflow-hidden">
+                  <div className="w-[80%] h-full border-t-2 border-r-2 border-[#D4AF37]/20 rounded-tr-[100px] transform -skew-x-12 translate-y-20 opacity-30"></div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-[#D4AF37]/40 rounded-full animate-ping"></div>
+              </div>
+           </div>
+
+           <div className="absolute top-8 left-8 text-[10px] font-mono text-[#D4AF37]/50 uppercase tracking-[0.5em]">Frame: 01_CINEMATIC_LOW</div>
+           <div className="absolute bottom-8 right-8 text-[10px] font-mono text-[#D4AF37]/50 uppercase tracking-[0.5em]">ISO: 100 // SHUTTER: 1/60</div>
+        </div>
       </section>
 
-      {/* Bento Grid Command Center */}
-      <section className="w-full max-w-7xl px-8 grid grid-cols-1 md:grid-cols-4 gap-4 z-10 pb-32">
+      {/* Exhibit Metrics */}
+      <section className="w-full max-w-7xl px-8 grid grid-cols-1 md:grid-cols-4 gap-1 z-10 pt-20 pb-40">
+        <div className="bg-white/5 p-12 border border-white/5 hover:bg-[#D4AF37]/5 transition-all">
+          <h4 className="text-[#D4AF37] text-xs font-mono mb-4 uppercase tracking-widest">Age</h4>
+          <p className="text-5xl font-black text-white">{data?.metrics?.age ? '155M' : '---'}</p>
+          <p className="text-[10px] text-white/20 mt-4">JURASSIC_PERIOD</p>
+        </div>
         
-        {/* Main Terminal Card */}
-        <div className="md:col-span-3 bg-white/[0.02] border border-white/[0.05] rounded-2xl p-8 backdrop-blur-xl relative overflow-hidden group hover:border-[#D4AF37]/20 transition-all duration-500">
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex space-x-2">
-              <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
-            </div>
-            <div className="text-[10px] font-mono text-white/20 uppercase tracking-[0.3em]">Command_Center_Dubai</div>
+        <div className="bg-white/5 p-12 border border-white/5 hover:bg-[#D4AF37]/5 transition-all">
+          <h4 className="text-[#D4AF37] text-xs font-mono mb-4 uppercase tracking-widest">Length</h4>
+          <p className="text-5xl font-black text-white">24.4m</p>
+          <p className="text-[10px] text-white/20 mt-4">DIPLODOCUS_L</p>
+        </div>
+
+        <div className="bg-white/5 p-12 border border-white/5 hover:bg-[#D4AF37]/5 transition-all md:col-span-2 flex flex-col justify-between">
+          <div className="flex justify-between items-start">
+             <div>
+                <h4 className="text-[#D4AF37] text-xs font-mono mb-4 uppercase tracking-widest">Live Feed</h4>
+                <p className="text-2xl font-bold text-white italic">"{data?.insight?.detail}"</p>
+             </div>
+             <div className="text-right">
+                <p className="text-[#D4AF37] font-mono text-xs">{counter}s</p>
+             </div>
           </div>
-          
-          <div className="space-y-6">
-            <div className="flex items-start space-x-4">
-              <span className="text-[#D4AF37] font-mono text-xl opacity-50">$</span>
-              <div className="flex-1 font-mono text-sm leading-relaxed">
-                <span className="text-white/40">initialize --luxury-protocol dubai_mall</span><br/>
-                <span className="text-green-400">✓ Luxury core loaded successfully</span><br/>
-                <span className="text-white/40 mt-4 block">fetching_live_insight...</span>
-                <div className="mt-8 p-6 bg-white/[0.02] border-l-2 border-[#D4AF37] rounded-r-lg animate-in fade-in slide-in-from-left duration-700">
-                   {loading ? (
-                     <div className="animate-pulse flex flex-col space-y-2">
-                        <div className="h-4 bg-white/5 w-3/4 rounded"></div>
-                        <div className="h-4 bg-white/5 w-1/2 rounded"></div>
-                     </div>
-                   ) : (
-                     <div className="space-y-2">
-                        <h3 className="text-[#D4AF37] font-bold text-lg uppercase tracking-widest">{data?.insight?.title}</h3>
-                        <p className="text-white/70 italic text-base leading-relaxed">"{data?.insight?.detail}"</p>
-                        <div className="text-[10px] text-white/30 uppercase pt-4 flex items-center">
-                           <span className="inline-block w-2 h-2 bg-[#D4AF37] rounded-full mr-2 animate-ping"></span>
-                           SYNCING... {counter}s REMAINING
-                        </div>
-                     </div>
-                   )}
-                </div>
-              </div>
-            </div>
+          <div className="w-full h-1 bg-white/5 mt-8">
+             <div className="h-full bg-[#D4AF37] animate-pulse" style={{ width: `${(counter/15)*100}%` }}></div>
           </div>
         </div>
-
-        {/* Small Metric Cards */}
-        <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/20 transition-all">
-          <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">Latency</div>
-          <div className="text-5xl font-black text-white mt-4">{data?.insight?.metric?.includes('ms') ? data.insight.metric : '11ms'}</div>
-          <div className="text-[10px] text-white/30 font-mono mt-4">EDGE_RESPONSE_OK</div>
-        </div>
-
-        <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/20 transition-all">
-          <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">Uptime</div>
-          <div className="text-5xl font-black text-white mt-4">{data?.metrics?.uptime || '99.9%'}</div>
-          <div className="text-[10px] text-white/30 font-mono mt-4">GLOBAL_STABILITY_CORE</div>
-        </div>
-
-        <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/20 transition-all">
-          <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">Visitors</div>
-          <div className="text-5xl font-black text-white mt-4">{data?.metrics?.visitors || '80M+'}</div>
-          <div className="text-[10px] text-white/30 font-mono mt-4">ANNUAL_RETAIL_FLOW</div>
-        </div>
-
-        <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/20 transition-all">
-          <div className="text-[10px] font-mono text-[#D4AF37] uppercase tracking-widest">Stores</div>
-          <div className="text-5xl font-black text-white mt-4">{data?.metrics?.stores || '1,200+'}</div>
-          <div className="text-[10px] text-white/30 font-mono mt-4">RETAIL_DENSITY_HUB</div>
-        </div>
-
-        <div className="md:col-span-4 bg-gradient-to-r from-[#D4AF37]/10 to-transparent border border-[#D4AF37]/20 rounded-2xl p-8 flex flex-col md:flex-row justify-between items-center group overflow-hidden relative">
-           <div className="z-10 text-center md:text-left">
-              <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">The Future of Retail is Here.</h2>
-              <p className="text-white/40 text-sm">Join the 1,200+ luxury brands scaling on our Dubai Mall infrastructure.</p>
-           </div>
-           <button className="z-10 mt-6 md:mt-0 px-10 py-4 bg-[#D4AF37] text-black font-black uppercase tracking-widest text-xs hover:bg-[#FFF3B0] transition-all transform hover:scale-105 active:scale-95">
-              DEPLOY LUXURY EXPERIENCE
-           </button>
-           <div className="absolute right-[-10%] bottom-[-50%] w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl group-hover:bg-[#D4AF37]/20 transition-all"></div>
-        </div>
-
       </section>
 
       {/* Footer */}
-      <footer className="w-full py-12 border-t border-white/5 flex flex-col items-center bg-black/50 backdrop-blur-md">
-        <div className="text-[10px] font-mono text-white/20 uppercase tracking-[1em] mb-4">
-          &copy; 2026 DUBAI MALL CORE &bull; ALL RIGHTS RESERVED
-        </div>
-        <div className="flex space-x-6 text-[10px] font-mono text-[#D4AF37]/50">
-           <span className="hover:text-[#D4AF37] cursor-pointer">PRIVACY</span>
-           <span className="hover:text-[#D4AF37] cursor-pointer">COMPLIANCE</span>
-           <span className="hover:text-[#D4AF37] cursor-pointer">INFRASTRUCTURE</span>
-        </div>
+      <footer className="w-full py-16 border-t border-white/5 flex flex-col items-center">
+        <p className="text-[10px] font-mono text-white/10 uppercase tracking-[1.5em] mb-4">MUSEUM ARCHIVE &bull; NO BATMAN &bull; JUST DINO</p>
       </footer>
-
-      <style jsx global>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fade-in 1s ease-out forwards; }
-      `}</style>
     </main>
   );
 }

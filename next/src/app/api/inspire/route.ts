@@ -4,23 +4,22 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const luxuryInsights = [
-    { title: "Retail Innovation", detail: "Integrating AI-driven personal shoppers across 1,200+ boutiques.", metric: "99.9% Uptime" },
-    { title: "Architectural Vision", detail: "The next phase of vertical expansion inspired by Burj Khalifa geometry.", metric: "2,717 ft Height" },
-    { title: "Global Presence", detail: "Syncing real-time luxury inventory with 54 global flagship hubs.", metric: "11ms Latency" },
-    { title: "Experience Design", detail: "Redefining the 'Digital Fountain' experience with 8K holographic projections.", metric: "1.2B Visitors" },
-    { title: "The Next Big Thing", detail: "Autonomous luxury transport pods connecting the mall to the urban core.", metric: "Zero Config" }
+    { title: "Dubai Dino Exhibit", detail: "A 155-million-year-old Diplodocus longus, standing majestically in the Grand Atrium.", metric: "7.6m Height" },
+    { title: "Jurassic Legacy", detail: "One of the few fossils in the world with nearly all original bones discovered in Wyoming.", metric: "24.4m Length" },
+    { title: "Grand Atrium View", detail: "The perfect cinematic angle from the first-floor balcony, capturing the skull against gold accents.", metric: "Best Angle" },
+    { title: "Prehistoric Luxury", detail: "Where ancient history meets modern architectural brilliance in the heart of Dubai Mall.", metric: "155M Years" }
   ];
   const randomInsight = luxuryInsights[Math.floor(Math.random() * luxuryInsights.length)];
   
   return NextResponse.json({
-    message: "DUBAI MALL LUXURY CORE CONNECTED",
+    message: "DUBAI DINO CORE CONNECTED",
     insight: randomInsight,
-    status: "PREMIUM",
+    status: "MUSEUM GRADE",
     timestamp: new Date().toISOString(),
     metrics: {
-      uptime: "99.99%",
-      visitors: "80M+",
-      stores: "1,200+"
+      age: "155 Million Years",
+      completeness: "90%+",
+      discovery: "USA (2008)"
     }
   });
 }
